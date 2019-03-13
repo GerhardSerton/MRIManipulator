@@ -15,7 +15,16 @@ VolImage::VolImage()
 }
 
 VolImage::~VolImage()
-{}
+{
+  for (int i = 0; i < imageno; i++)
+  {
+    for (int j = 0; j < height; j++)
+    {
+      delete slices[i][j];
+    }
+    delete slices[i];
+  }
+}
 
 bool VolImage::readImages(std::string baseName)
 {
