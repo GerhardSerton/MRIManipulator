@@ -20,9 +20,9 @@ VolImage::~VolImage()
   {
     for (int j = 0; j < height; j++)
     {
-      delete slices[i][j];
+      delete [] slices[i][j];
     }
-    delete slices[i];
+    delete [] slices[i];
   }
 }
 
@@ -31,18 +31,35 @@ bool VolImage::readImages(std::string baseName)
   prefix = baseName;
   readHeader();
   initializeSlices();
-  slices[428][302][122] = (unsigned char)48;
-  std::cout << (int)slices[428][302][122];
-  //for (int i = 0; i < imageno; i++)
-  //{
-
-  //}
+  //slices[428][302][122] = (unsigned char)48;
+  //std::cout << (int)slices[428][302][122];
+  for (int i = 0; i < imageno; i++)
+  {
+      std::ifstream filein;
+      std::string currentimage = prefix + std::to_string(i) + ".raw";
+      filein.open(currentimage, std::ios::in | std::ios::binary);
+      for (int j = 0; j < height; j++)
+      {
+        filein.read((char*)slices[i][j], width);
+      }
+      filein.close();
+  }
 
   return false;
 }
 
 void VolImage::diffmap(int sliceI, int sliceJ, std::string output_prefix)
-{}
+{
+  unsigned char output [height][width];
+  for (int i = 0; i < height; i ++)
+  {
+    for (int j = 0; j < width; j++)
+    {
+      unsigned char answer = (unsigned char)(abs((float)slices[sliceI][i][j] - (float)slices[sliceJ][i][j])/2);
+      output[i][j] = answer;
+    }
+  }
+}
 
 void VolImage::extract(int sliceId, std::string output_prefix)
 {}
