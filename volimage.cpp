@@ -22,7 +22,12 @@ bool VolImage::readImages(std::string baseName)
   prefix = baseName;
   readHeader();
   initializeSlices();
-  std::cout << (int)slices[1][1][1];
+  slices[428][302][122] = (unsigned char)48;
+  std::cout << (int)slices[428][302][122];
+  //for (int i = 0; i < imageno; i++)
+  //{
+
+  //}
 
   return false;
 }
@@ -58,16 +63,15 @@ void VolImage::readHeader(void)
 
 void VolImage::initializeSlices(void)
 {
-    for (int i = 0; i < 10; i ++)
+    for (int i = 0; i < imageno; i ++)
     {
         unsigned char ** b = new unsigned char * [height];
-        for (int j = 0; j < 10; j++)
+        for (int j = 0; j < height; j++)
         {
             unsigned char * c = new unsigned char [width];
             b[j] = c;
         }
         slices.push_back(b);
     }
-    slices[1][1][1] = (unsigned char)28;
 
 }
