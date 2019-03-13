@@ -55,19 +55,46 @@ void VolImage::diffmap(int sliceI, int sliceJ, std::string output_prefix)
   {
     for (int j = 0; j < width; j++)
     {
-      unsigned char answer = (unsigned char)(abs((float)slices[sliceI][i][j] - (float)slices[sliceJ][i][j])/2);
-      output[i][j] = answer;
+      output[i][j] = (unsigned char)(abs((float)slices[sliceI][i][j] - (float)slices[sliceJ][i][j])/2);
     }
   }
+
+  std::ofstream fileout;
+  fileout.open(output_prefix + ".raw", std::ios::out | std::ios::binary);
+  for (int i = 0; i < height; i++)
+  {
+    fileout.write((char*)output[i], width);
+  }
+  fileout.close();
 }
 
 void VolImage::extract(int sliceId, std::string output_prefix)
-{}
+{
+  unsigned char output [height][width];
+  for (int i = 0; i < height; i++)
+  {
+    for (int j = 0; j < width; j++)
+    {
+      output[i][j] = slices[sliceId][i][j];
+    }
+  }
+
+  std::ofstream fileout;
+  fileout.open(output_prefix + ".raw", std::ios::out | std::ios::binary);
+  for (int i = 0; i < height; i++)
+  {
+    fileout.write((char*)output[i], width);
+  }
+  fileout.close();
+}
 //8 bytes per pointer
 int VolImage::volImageSize(void)
 {
   int pointermemory = 8 * height * imageno;
   int charmemory = width * height * imageno;
+  int total = pointermemory + charmemory;
+  std::cout << "Number of images: " << imageno << "\n";
+  std::cout << "Number of bytes required: " << total << "\n";
   return pointermemory + charmemory;
 }
 
