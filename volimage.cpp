@@ -61,7 +61,7 @@ void VolImage::diffmap(int sliceI, int sliceJ, std::string output_prefix)
   }
 
   std::ofstream fileout;
-  fileout.open(output_prefix + ".raw", std::ios::out | std::ios::binary);
+  fileout.open(output_prefix, std::ios::out | std::ios::binary);
   for (int i = 0; i < height; i++)
   {
     fileout.write((char*)output[i], width);
@@ -81,7 +81,7 @@ void VolImage::extract(int sliceId, std::string output_prefix)
   }
 
   std::ofstream fileout;
-  fileout.open(output_prefix + ".raw", std::ios::out | std::ios::binary);
+  fileout.open(output_prefix, std::ios::out | std::ios::binary);
   for (int i = 0; i < height; i++)
   {
     fileout.write((char*)output[i], width);
