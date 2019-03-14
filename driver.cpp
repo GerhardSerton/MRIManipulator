@@ -7,6 +7,7 @@ int main(int argc, char* argv[])
 {
   VolImage image;
   string header = argv[1];
+  //string header = "brain_mri_raws/MRI";
   image.readImages(header);
   //cout << "Header: " << header << "\n";
   if (argc == 2)
@@ -34,6 +35,5 @@ int main(int argc, char* argv[])
       image.extract(chosenSlice, filename);
     }
   }
-  //image.~VolImage();
-  return 0;
+    return 0;
 }

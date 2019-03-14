@@ -16,6 +16,7 @@ VolImage::VolImage()
 
 VolImage::~VolImage()
 {
+  //delete [] slices[0][0];
   for (int i = 0; i < imageno; i++)
   {
     for (int j = 0; j < height; j++)
@@ -111,7 +112,7 @@ void VolImage::readHeader(void)
   inFile >> width;
   inFile >> height;
   inFile >> imageno;
-  std::cout << "Width, Height, Imageno: " << width << " " << height << " " << imageno << "\n";
+  //std::cout << "Width, Height, Imageno: " << width << " " << height << " " << imageno << "\n";
 }
 
 void VolImage::initializeSlices(void)
