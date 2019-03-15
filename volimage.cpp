@@ -60,13 +60,18 @@ void VolImage::diffmap(int sliceI, int sliceJ, std::string output_prefix)
     }
   }
 
+  std::string outputname = output_prefix + ".raw";
   std::ofstream fileout;
-  fileout.open(output_prefix, std::ios::out | std::ios::binary);
+  fileout.open(outputname, std::ios::out | std::ios::binary);
   for (int i = 0; i < height; i++)
   {
     fileout.write((char*)output[i], width);
   }
   fileout.close();
+  std::string headername = output_prefix + ".dat";
+  std::ofstream header (headername);
+  header << width << " " << height << " 1";
+  header.close();
 }
 
 void VolImage::extract(int sliceId, std::string output_prefix)
@@ -79,14 +84,20 @@ void VolImage::extract(int sliceId, std::string output_prefix)
       output[i][j] = slices[sliceId][i][j];
     }
   }
-
+  std::string outputname = output_prefix + ".raw";
   std::ofstream fileout;
-  fileout.open(output_prefix, std::ios::out | std::ios::binary);
+  fileout.open(outputname, std::ios::out | std::ios::binary);
   for (int i = 0; i < height; i++)
   {
     fileout.write((char*)output[i], width);
   }
   fileout.close();
+  std::string headername = output_prefix + ".dat";
+  std::ofstream header (headername);
+  header << width << " " << height << " 1";
+  header.close();
+
+
 }
 //8 bytes per pointer
 int VolImage::volImageSize(void)
@@ -96,7 +107,7 @@ int VolImage::volImageSize(void)
   int total = pointermemory + charmemory;
   std::cout << "Number of images: " << imageno << "\n";
   std::cout << "Number of bytes required: " << total << "\n";
-  return pointermemory + charmemory;
+  return total;
 }
 
 void VolImage::readHeader(void)

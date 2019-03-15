@@ -20,6 +20,8 @@ int main(int argc, char* argv[])
     //cout << "Command: " << command << "\n";
     if (command == "-d")
     {
+      image.volImageSize();
+      cout << "Generating Difference Map...\n";
       int sliceI = strtol(argv[3], NULL, 10);
       int sliceJ = strtol(argv[4], NULL, 10);
       //cout << "-d numbers: " << sliceI << " " << sliceJ << "\n";
@@ -29,6 +31,8 @@ int main(int argc, char* argv[])
     }
     else if (command == "-x")
     {
+      image.volImageSize();
+      cout << "Extracting file...\n";
       int chosenSlice = strtol(argv[3], NULL, 10);
       //cout << "-x numbers: " << chosenSlice << "\n";
       string filename = argv[4];
